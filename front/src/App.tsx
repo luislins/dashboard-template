@@ -1,5 +1,6 @@
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import React, { useEffect } from 'react';
 import { FiSettings } from "react-icons/fi";
 import { Tooltip } from "@mui/material";
 
@@ -11,26 +12,37 @@ import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Ka
 import { useStateContext } from "./contexts/Context";
 
 import './App.css';
+import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 function App() {
-  const { activeMenu } = useStateContext();
+  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  useEffect(() => {
+    const currentThemeColor = localStorage.getItem('colorMode');
+    const currentThemeMode = localStorage.getItem('themeMode');
+    if (currentThemeColor && currentThemeMode) {
+      setCurrentColor(currentThemeColor);
+      setCurrentMode(currentThemeMode);
+    }
+  }, []);
   return (
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <Tooltip
-              title="Settings"
+            <TooltipComponent
+              content="Settings"
+              position="TopLeft"
             >
               <button
                 type="button"
-                onClick={() => {}}
-                style={{ background: "blue", borderRadius: '50%' }}
+                onClick={() => setThemeSettings(true)}
+                style={{ background: currentColor, borderRadius: '50%' }}
                 className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
               >
                 <FiSettings />
               </button>
 
-            </Tooltip>
+            </TooltipComponent>
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
@@ -52,7 +64,7 @@ function App() {
               <Navbar />
             </div>
             <div>
-              {/* {themeSettings && (<ThemeSettings />)} */}
+              {themeSettings && (<ThemeSettings />)}
 
               <Routes>
                 {/* dashboard  */}
@@ -86,6 +98,7 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
+    </div>
   );
 }
 

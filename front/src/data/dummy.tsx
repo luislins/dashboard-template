@@ -22,6 +22,8 @@ import product5 from './product5.jpg';
 import product6 from './product6.jpg';
 import product7 from './product7.jpg';
 import product8 from './product8.jpg';
+import { AxisModel } from '@syncfusion/ej2-react-charts';
+import { ContextMenuItem } from '@syncfusion/ej2-react-grids';
 
 type dummyProps = {
   ProductImage: string;
@@ -152,7 +154,7 @@ const customerGridStatus = (props:dummyProps) => (
     <p>{props.Status}</p>
   </div>
 );
-export const areaPrimaryXAxis = {
+export const areaPrimaryXAxis : AxisModel = {
   valueType: 'DateTime',
   labelFormat: 'y',
   majorGridLines: { width: 0 },
@@ -171,7 +173,7 @@ export const areaPrimaryYAxis = {
   labelStyle: { color: 'gray' },
 
 };
-export const barPrimaryXAxis = {
+export const barPrimaryXAxis : AxisModel = {
   valueType: 'Category',
   interval: 1,
   majorGridLines: { width: 0 },
@@ -316,18 +318,18 @@ export const barCustomSeries = [
 ];
 export const colorMappingData = [
   [
-    { x: 'Jan', y: 6.96 },
-    { x: 'Feb', y: 8.9 },
-    { x: 'Mar', y: 12 },
-    { x: 'Apr', y: 17.5 },
-    { x: 'May', y: 22.1 },
-    { x: 'June', y: 25 },
-    { x: 'July', y: 29.4 },
-    { x: 'Aug', y: 29.6 },
-    { x: 'Sep', y: 25.8 },
-    { x: 'Oct', y: 21.1 },
-    { x: 'Nov', y: 15.5 },
-    { x: 'Dec', y: 9.9 },
+    // { x: 'Jan', y: 6.96 },
+    // { x: 'Feb', y: 8.9 },
+    // { x: 'Mar', y: 12 },
+    // { x: 'Apr', y: 17.5 },
+    // { x: 'May', y: 22.1 },
+    // { x: 'June', y: 25 },
+    // { x: 'July', y: 29.4 },
+    // { x: 'Aug', y: 29.6 },
+    // { x: 'Sep', y: 25.8 },
+    // { x: 'Oct', y: 21.1 },
+    // { x: 'Nov', y: 15.5 },
+    // { x: 'Dec', y: 9.9 },
   ],
   ['#FFFF99'],
   ['#FFA500'],
@@ -336,23 +338,23 @@ export const colorMappingData = [
 
 export const rangeColorMapping = [
   { label: '1°C to 10°C',
-    start: '1',
-    end: '10',
+    start: 1,
+    end: 10,
     colors: colorMappingData[1] },
 
   { label: '11°C to 20°C',
-    start: '11',
-    end: '20',
+    start: 11,
+    end: 20,
     colors: colorMappingData[2] },
 
   { label: '21°C to 30°C',
-    start: '21',
-    end: '30',
+    start: 21,
+    end: 30,
     colors: colorMappingData[3] },
 
 ];
 
-export const ColorMappingPrimaryXAxis = {
+export const ColorMappingPrimaryXAxis : AxisModel = {
   valueType: 'Category',
   majorGridLines: { width: 0 },
   title: 'Months',
@@ -366,7 +368,7 @@ export const ColorMappingPrimaryYAxis = {
   title: 'Temperature',
 };
 
-export const FinancialPrimaryXAxis = {
+export const FinancialPrimaryXAxis : AxisModel = {
   valueType: 'DateTime',
   minimum: new Date('2016, 12, 31'),
   maximum: new Date('2017, 9, 30'),
@@ -383,16 +385,16 @@ export const FinancialPrimaryYAxis = {
   majorTickLines: { width: 0 },
 };
 
-export const LinePrimaryXAxis = {
+export const LinePrimaryXAxis : AxisModel = {
   valueType: 'DateTime',
   labelFormat: 'y',
   intervalType: 'Years',
   edgeLabelPlacement: 'Shift',
   majorGridLines: { width: 0 },
-  background: 'white',
+  // background: 'white',
 };
 
-export const LinePrimaryYAxis = {
+export const LinePrimaryYAxis : AxisModel = {
   labelFormat: '{value}%',
   rangePadding: 'None',
   minimum: 0,
@@ -601,6 +603,7 @@ export const chatData = [
     message: 'Roman Joined the Team!',
     desc: 'Congratulate him',
     time: '9:08 AM',
+    dotColor:"red"
   },
   {
     image:
@@ -608,6 +611,7 @@ export const chatData = [
     message: 'New message received',
     desc: 'Salma sent you new message',
     time: '11:56 AM',
+    dotColor:"red"
   },
   {
     image:
@@ -615,6 +619,7 @@ export const chatData = [
     message: 'New Payment received',
     desc: 'Check your earnings',
     time: '4:39 AM',
+    dotColor:"red"
   },
   {
     image:
@@ -622,6 +627,7 @@ export const chatData = [
     message: 'Jolly completed tasks',
     desc: 'Assign her new tasks',
     time: '1:12 AM',
+    dotColor:"red"
   },
 ];
 
@@ -3140,7 +3146,7 @@ export const pieChartData = [
   { x: 'Insurance', y: 16, text: '16%' },
 ];
 
-export const contextMenuItems = [
+export const contextMenuItems : ContextMenuItem[] = [
   'AutoFit',
   'AutoFitAll',
   'SortAscending',
@@ -3187,6 +3193,28 @@ export const stackedChartData = [
   ],
 ];
 
+//Novo
+export const dataStacked = [
+  {
+    name: 'Page A',
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: 'Page B',
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: 'Page C',
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  }
+];
+
 export const stackedCustomSeries = [
 
   { dataSource: stackedChartData[0],
@@ -3209,7 +3237,7 @@ export const stackedCustomSeries = [
 
 ];
 
-export const stackedPrimaryXAxis = {
+export const stackedPrimaryXAxis : AxisModel = {
   majorGridLines: { width: 0 },
   minorGridLines: { width: 0 },
   majorTickLines: { width: 0 },

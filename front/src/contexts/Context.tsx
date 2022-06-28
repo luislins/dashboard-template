@@ -25,14 +25,14 @@ interface AppContext {
     setIsClicked : (value: defaultStateIsClickedProps) => void;
     currentColor : string;
     setCurrentColor : (value : string) => void,
-    currentMode ?: string;
+    currentMode : string;
     setCurrentMode : (value : string) => void,
     screenSize : number | null ;
     setScreenSize : (value : number | null) => void,
     themeSettings ?: boolean;
     setThemeSettings : (value : boolean) => void
     handleClick : (value : string) => void,
-    defaultStateIsClicked ?: defaultStateIsClickedProps,
+    defaultStateIsClicked : defaultStateIsClickedProps,
     setMode : (value : ChangeEvent<HTMLInputElement>) => void
     setColor : (value : string) => void
     
@@ -51,6 +51,8 @@ const defaultState : AppContext = {
     setColor: value => {return},
     isClicked: defaultStateIsClicked,
     handleClick: value => {return},
+    defaultStateIsClicked : defaultStateIsClicked,
+    currentMode:"white" // olhar depois
 };
 
 
