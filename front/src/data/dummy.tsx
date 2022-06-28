@@ -3194,26 +3194,10 @@ export const stackedChartData = [
 ];
 
 //Novo
-export const dataStacked = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  }
-];
+export const dataBudget = [395, 168, 233, 138, 41, 288, 100];
+export const dataExpense = [372, 347, 114, 29, 124, 330, 70];
+
+
 
 export const stackedCustomSeries = [
 

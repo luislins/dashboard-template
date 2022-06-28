@@ -1,43 +1,68 @@
 import React from 'react'
 import { SparklineType, SparklineComponent, Inject, SparklineTooltip } from '@syncfusion/ej2-react-charts';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import faker from 'faker';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 
 interface SparkLineProps {
   id?: string
-  height?: string
-  width?: string
-  color?: string
-  data: {x: number; yval: number;}[]
-  type?: SparklineType
   currentColor?: string
 };
 
 
-export function SparkLine({ id, height, width, color, data, type, currentColor } : SparkLineProps) {
+export function SparkLine({ id, currentColor } : SparkLineProps) {
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      y: {
+        display: false
+      },
+      x: {
+        display: false
+      }
+    }
+  };
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        borderColor: currentColor,
+        backgroundColor: currentColor,
+      }
+    ],
+  };
   return (
-    <SparklineComponent
-      id={id}
-      height={height}
-      width={width}
-      lineWidth={1}
-      valueType="Numeric"
-      fill={color}
-      border={{ color: currentColor, width: 2 }}
-      tooltipSettings={{
-        visible: true,
-        // eslint-disable-next-line no-template-curly-in-string
-        format: '${x} : data ${yval}',
-        trackLineSettings: {
-          visible: true,
-        },
-      }}
-      markerSettings={{ visible: ['All'], size: 2.5, fill: currentColor }}
-      dataSource={data}
-      xName="x"
-      yName="yval"
-      type={type}
-    >
-      <Inject services={[SparklineTooltip]} />
-    </SparklineComponent>
+    <Line id={id} options={options} data={data} />
   );
 }

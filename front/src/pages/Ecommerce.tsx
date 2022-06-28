@@ -12,7 +12,7 @@ import product9 from '../data/product9.jpg';
 interface DropDownProps {
   currentMode: string
 };
-// color: (currentMode === 'Dark') && 'white' 
+
 const DropDown = ({ currentMode }: DropDownProps) =>{
   return (
     <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -23,7 +23,7 @@ const DropDown = ({ currentMode }: DropDownProps) =>{
 
 export function Ecommerce() {
   const { currentColor, currentMode } = useStateContext();
-
+  
   return (
     <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">
@@ -76,7 +76,7 @@ export function Ecommerce() {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Revenue Updates</p>
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                 <span>
                   <GoPrimitiveDot />
@@ -89,7 +89,7 @@ export function Ecommerce() {
                 </span>
                 <span>Budget</span>
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="mt-10 flex gap-10 flex-wrap justify-center">
             <div className=" border-r-1 border-color m-4 pr-10">
@@ -110,7 +110,6 @@ export function Ecommerce() {
 
               <div className="mt-5">
                 <SparkLine currentColor={currentColor} id="line-sparkLine" type="Line" height="80px" width="250px" data={SparklineAreaData} color={currentColor} />
-                Não funcionas
               </div>
               <div className="mt-10">
                 <Button
@@ -122,7 +121,7 @@ export function Ecommerce() {
               </div>
             </div>
             <div>
-              <Stacked currentMode={currentMode} width="320px" height="360px" />
+              <Stacked  width="320px" height="360px" />
             </div>
           </div>
         </div>
