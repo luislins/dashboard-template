@@ -1,28 +1,68 @@
 import React from 'react'
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime, Legend, Tooltip } from '@syncfusion/ej2-react-charts';
+import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime } from '@syncfusion/ej2-react-charts';
 
 import { lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis } from '../../data/dummy';
+import { Line } from 'react-chartjs-2';
 import { useStateContext } from '../../contexts/Context';
+import faker from 'faker';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
-export function LineChart() {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+interface dataLineChartProps {
+  data:{
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        borderColor: string;
+        backgroundColor: string;
+    }[];
+  }
+};
+
+export function LineChart({ data } : dataLineChartProps) {
   const { currentMode } = useStateContext();
+  const options = {
+    responsive: true,
+    plugins: {
+      datalabels: {
+        display:false
+      },
+      legend: {
+        labels: {
+          font: {
+              weight:"bold"
+          },
+          color: currentMode === 'Dark' ? '#fff' : '#33373E'
+        },
+        position: 'bottom' as const
+        },
+      title: {
+        display: false
+      },
+    },
+  };
+
   return (
-    <ChartComponent
-      id="line-chart"
-      height="420px"
-      primaryXAxis={LinePrimaryXAxis}
-      primaryYAxis={LinePrimaryYAxis}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-      background={currentMode === 'Dark' ? '#33373E' : '#fff'}
-      legendSettings={{ background: 'white' }}
-    >
-      <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
-      <SeriesCollectionDirective>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {lineCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
-      </SeriesCollectionDirective>
-    </ChartComponent>
+   <Line options={options} data={data} />
   );
 }
 

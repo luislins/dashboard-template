@@ -3235,6 +3235,41 @@ export const dataBarVertical = {
   ],
 };
 
+export const dataLineChart = {
+  labels,
+  datasets: [
+    {
+      label: 'Germany',
+      data: [573, -881, -808, -195, -349, -18, 319],
+      borderColor: '#00bdae',
+      backgroundColor: '#00bdae',
+    },
+    {
+      label: 'England',
+      data: [-255, 170, 969, -183, -937, -889, -511],
+      borderColor: '#357cd2',
+      backgroundColor: '#357cd2',
+    },
+    {
+      label: 'India',
+      data: [152, -913, 70, 688, -2, 830, -770],
+      borderColor: '#b1b2b4',
+      backgroundColor: '#b1b2b4',
+    },
+  ],
+};
+
+export const dataAreaChart = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: 'Dataset 2',
+      data: [152, 200, 250, 688, 700, 830, 970],
+    },
+  ],
+};
+
 
 export const stackedCustomSeries = [
 

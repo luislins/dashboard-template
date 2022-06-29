@@ -14,8 +14,7 @@ interface DoughnutProps {
 };
 
 export function Doughnut({id, data, legendVisiblity, height } : DoughnutProps) {
-  const { currentMode } = useStateContext();
-
+  
   const data2 = {
     labels: ['Red', 'Blue', 'Yellow', 'Green'],
     datasets: [

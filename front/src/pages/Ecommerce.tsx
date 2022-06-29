@@ -4,8 +4,8 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
-import { Stacked, Doughnut, Button, LineChart, SparkLine, BarVertical} from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData, dataStacked, dataSparkLine, dataBarVertical } from '../data/dummy';
+import { Stacked, Doughnut, Button, LineChart, SparkLine, BarVertical, AreaChart} from '../components';
+import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, dataAreaChart, ecomPieChartData, dataStacked, dataSparkLine, dataBarVertical, dataLineChart } from '../data/dummy';
 import { useStateContext } from '../contexts/Context';
 import product9 from '../data/product9.jpg';
 
@@ -203,10 +203,10 @@ export function Ecommerce() {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-96 md:w-760">
           <div className="flex justify-between items-center gap-2 mb-10">
             <p className="text-xl font-semibold">Sales Overview</p>
-            <DropDown currentMode={currentMode} />
+            {/* <DropDown currentMode={currentMode} /> */}
           </div>
           <div className="md:w-full overflow-auto">
-            <LineChart />
+            <LineChart data={dataLineChart} />
           </div>
         </div>
       </div>
@@ -241,7 +241,7 @@ export function Ecommerce() {
               </div>
             ))}
             <div className="mt-4">
-              <SparkLine currentColor={currentColor} id="area-sparkLine" height="160px" width="320" data={dataSparkLine}  />
+              <AreaChart currentColor={currentColor} id="area-sparkLine" height="160px" width="320" data={dataAreaChart}  />
             </div>
           </div>
 

@@ -53,7 +53,6 @@ export function BarVertical({ id, width, height, data } : BarProps) {
         },
         title: {
           display: false,
-          text: 'Chart.js Bar Chart',
         },
       },
     };
