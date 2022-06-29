@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SparklineType, SparklineComponent, Inject, SparklineTooltip } from '@syncfusion/ej2-react-charts';
+import { useStateContext } from '../../contexts/Context';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +14,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
+import { contentControlEvent } from '@syncfusion/ej2/documenteditor';
 
 ChartJS.register(
   CategoryScale,
@@ -26,15 +29,27 @@ ChartJS.register(
 
 interface SparkLineProps {
   id?: string
-  currentColor?: string
+  height?: string
+  currentColor: string
+  width?: string
+  data: {
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        borderColor ?: string
+        backgroundColor ?: string
+    }[];
+}
 };
 
-
-export function SparkLine({ id, currentColor } : SparkLineProps) {
-
+  export function SparkLine({ id, height, width, data, currentColor} : SparkLineProps) {
   const options = {
     responsive: true,
     plugins: {
+      datalabels: {
+        display:false
+      },
       legend: {
         display: false
       }
@@ -46,23 +61,21 @@ export function SparkLine({ id, currentColor } : SparkLineProps) {
       x: {
         display: false
       }
+    },
+    elements: {
+        line: {
+          backgroundColor : currentColor,
+          borderColor : currentColor
+        }
     }
   };
-
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        borderColor: currentColor,
-        backgroundColor: currentColor,
-      }
-    ],
-  };
+  
+  // data.datasets.map((item)=>{
+  //   item.backgroundColor = currentColor
+  //   item.borderColor = currentColor
+  // });
+  
   return (
-    <Line id={id} options={options} data={data} />
+    <Line id={id} height={height} width={width} options={options} data={data} />
   );
 }

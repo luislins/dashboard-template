@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Category, StackingColumnSeries  } from '@syncfusion/ej2-react-charts';
 
-import {dataBudget, dataExpense} from '../../data/dummy';
+
 import { useStateContext } from '../../contexts/Context';
 import {
   Chart as ChartJS,
@@ -25,14 +25,26 @@ ChartJS.register(
   Filler
 );
 interface StackedProps {
+  id : string
   width?: string
   height?: string
+  data:{
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        backgroundColor: string;
+    }[];
+}
 };
 
-export function Stacked({ width, height } : StackedProps) {
+export function Stacked({ id, width, height, data } : StackedProps) {
   const { currentMode } = useStateContext();
   const options = {
     plugins: {
+      datalabels: {
+        display:false
+      },
       legend: {
           labels: {
             font: {
@@ -54,25 +66,8 @@ export function Stacked({ width, height } : StackedProps) {
       
     },
   };
-
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Budget',
-        data: dataBudget,
-        backgroundColor: '#404041',
-      },
-      {
-        label: 'Expense',
-        data: dataExpense,
-        backgroundColor: '#00bdae',
-      },
-    ],
-  };
+  
   return (
-    <Bar id="charts" width={width} height={height} options={options} data={data} />
+    <Bar id={id} width={width} height={height} options={options} data={data} />
   );
 };

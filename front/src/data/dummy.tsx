@@ -3196,7 +3196,44 @@ export const stackedChartData = [
 //Novo
 export const dataBudget = [395, 168, 233, 138, 41, 288, 100];
 export const dataExpense = [372, 347, 114, 29, 124, 330, 70];
+export const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
+export const dataStacked = {
+  labels,
+  datasets: [
+    {
+      label: 'Budget',
+      data: dataBudget,
+      backgroundColor: '#404041',
+    },
+    {
+      label: 'Expense',
+      data: dataExpense,
+      backgroundColor: '#00bdae',
+    },
+  ],
+};
+
+export const dataSparkLine = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: dataBudget
+    }
+  ],
+};
+
+export const dataBarVertical = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: dataExpense,
+      backgroundColor: '#fff',
+    },
+  ],
+};
 
 
 export const stackedCustomSeries = [
