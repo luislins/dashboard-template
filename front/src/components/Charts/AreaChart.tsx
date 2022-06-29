@@ -28,22 +28,20 @@ ChartJS.register(
 );
 interface AreaProps {
   id:string
+  height:string
+  width:string
   currentColor:string
-  borderColor: string,
-  backgroundColor: string,
   data: {
     labels: string[];
     datasets: {
         fill: boolean;
         label: string;
         data: number[];
-        borderColor: string;
-        backgroundColor: string;
     }[];
 }
 };
 
-export function AreaChart({ data, currentColor} : AreaProps) {
+export function AreaChart({ id, data, currentColor, height, width} : AreaProps) {
   const { currentMode } = useStateContext();
 
   const options = {
@@ -81,6 +79,6 @@ export function AreaChart({ data, currentColor} : AreaProps) {
 
 
   return (
-    <Line options={options} data={data} />
+    <Line id={id} height={height} width={width} options={options} data={data} />
   );
 }
