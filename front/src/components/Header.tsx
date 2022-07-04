@@ -3,11 +3,12 @@ import React from 'react'
 interface HeaderProps {
   category?: string
   title?: string
+  height?: string
 };
 
-export function Header({ category, title } : HeaderProps) {
+export function Header({ category, title, height } : HeaderProps) {
   return (
-    <div className=" mb-10">
+    <div style={{ height: height}} className=" mb-10">
     <p className="text-lg text-gray-400">{category}</p>
     <p className="text-3xl font-extrabold tracking-tight text-slate-900">
       {title}

@@ -24,6 +24,10 @@ import product7 from './product7.jpg';
 import product8 from './product8.jpg';
 import { AxisModel } from '@syncfusion/ej2-react-charts';
 import { ContextMenuItem } from '@syncfusion/ej2-react-grids';
+import { GridAlignment, GridRenderCellParams} from '@mui/x-data-grid';
+import Avatar from '@mui/material/Avatar';
+
+
 
 type dummyProps = {
   ProductImage: string;
@@ -37,23 +41,38 @@ type dummyProps = {
   CustomerEmail: string;
 };
 
-export const gridOrderImage = (props:dummyProps) => (
+export const gridOrderImage = (path:string) => (
   <div>
-    <img
-      className="rounded-xl h-20 md:ml-3"
-      src={props.ProductImage}
+    <img 
+      style={{maxWidth: "5em", borderRadius:"1rem"}}
+      className="rounded-xl h-20 md:ml-3 "
+      src={path}
       alt="order-item"
     />
   </div>
 );
 
-export const gridOrderStatus = (props:dummyProps) => (
+export function backgroundOrderButton(value:string){
+  if(value == "active"){
+    return "#03c9d7";
+  }else if(value == "complete"){
+    return "#8be78b";
+  }else if(value == "pending"){
+    return "#fb9678";
+  }else if(value == "canceled"){
+    return "#ff5c8e";
+  }else if(value == "rejected"){
+  return "#ff0000";
+}
+};
+
+export const gridOrderStatus = (value:string) => (
   <button
     type="button"
-    style={{ background: props.StatusBg }}
-    className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+    style={{ background: backgroundOrderButton(value) }}
+    className="text-white py-1 px-2 capitalize rounded-2xl text-md w-6/12"
   >
-    {props.Status}
+    {value}
   </button>
 );
 
@@ -890,50 +909,71 @@ export const userProfileData = [
 
 export const ordersGrid = [
   {
-    headerText: 'Image',
-    template: gridOrderImage,
-    textAlign: 'Center',
-    width: '120',
+    headerName: 'Image',
+    field: 'image',
+    // template: gridOrderImage,
+    align: 'center' as GridAlignment,
+    // width: 120,
+    renderCell: (path: GridRenderCellParams<string>) => {
+      return (
+        <>
+          {gridOrderImage(path.value as string)}
+        </>
+      );
+    },
+    flex: 1
   },
   {
-    field: 'OrderItems',
-    headerText: 'Item',
-    width: '150',
-    editType: 'dropdownedit',
-    textAlign: 'Center',
+    headerName: 'Item',
+    field: 'orderItems',
+    // width: 150,
+    flex: 1,
+    editable: true,
+    align: 'center' as GridAlignment,
   },
-  { field: 'CustomerName',
-    headerText: 'Customer Name',
-    width: '150',
-    textAlign: 'Center',
+  { field: 'customerName',
+    headerName: 'Customer Name',
+    // width: 150,
+    flex: 1,
+    align: 'center' as GridAlignment,
   },
   {
     field: 'TotalAmount',
-    headerText: 'Total Amount',
-    format: 'C2',
-    textAlign: 'Center',
-    editType: 'numericedit',
-    width: '150',
+    headerName: 'Total Amount',
+    align: 'center' as GridAlignment,
+    editable: true,
+    // width: 150,
+    flex: 1,
   },
   {
-    headerText: 'Status',
-    template: gridOrderStatus,
-    field: 'OrderItems',
-    textAlign: 'Center',
-    width: '120',
+    headerName: 'Status',
+    // template: gridOrderStatus,
+    field: 'status',
+    align: 'center' as GridAlignment,
+    renderCell: (path: GridRenderCellParams<string>) => {
+      return (
+        <>
+          {gridOrderStatus(path.value as string)}
+        </>
+      );
+    },
+    // width: 120,
+    flex: 1,
+
   },
   {
-    field: 'OrderID',
-    headerText: 'Order ID',
-    width: '120',
-    textAlign: 'Center',
+    field: 'orderId',
+    headerName: 'Order ID',
+    // width: 120,
+    flex: 1,
+    align: 'center' as GridAlignment,
   },
 
   {
-    field: 'Location',
-    headerText: 'Location',
-    width: '150',
-    textAlign: 'Center',
+    field: 'location',
+    headerName: 'Location',
+    // width: 150,
+    align: 'center' as GridAlignment,
   },
 ];
 
@@ -2141,6 +2181,7 @@ export const employeesData = [
 
 export const ordersData = [
   {
+    id: 10248,
     OrderID: 10248,
     CustomerName: 'Vinet',
 
@@ -2153,6 +2194,7 @@ export const ordersData = [
       product6,
   },
   {
+    id: 345653,
     OrderID: 345653,
     CustomerName: 'Carson Darrin',
     TotalAmount: 56.34,
@@ -2164,6 +2206,7 @@ export const ordersData = [
       product5,
   },
   {
+    id: 390457,
     OrderID: 390457,
     CustomerName: 'Fran Perez',
     TotalAmount: 93.31,
@@ -2175,6 +2218,7 @@ export const ordersData = [
       product7,
   },
   {
+    id: 893486,
     OrderID: 893486,
     CustomerName: 'Anika Viseer',
     TotalAmount: 93.31,
@@ -2186,6 +2230,7 @@ export const ordersData = [
       product4,
   },
   {
+    id: 748975,
     OrderID: 748975,
     CustomerName: 'Miron Vitold',
     TotalAmount: 23.99,
@@ -2197,6 +2242,7 @@ export const ordersData = [
     product1,
   },
   {
+    id: 94757,
     OrderID: 94757,
     CustomerName: 'Omar Darobe',
     TotalAmount: 95.99,
@@ -2208,6 +2254,7 @@ export const ordersData = [
       product2,
   },
   {
+    id: 944895,
     OrderID: 944895,
     CustomerName: 'Lulia albu',
     TotalAmount: 17.99,
@@ -2219,6 +2266,7 @@ export const ordersData = [
       product3,
   },
   {
+    id: 845954,
     OrderID: 845954,
     CustomerName: 'Penjani',
     TotalAmount: 59.99,
@@ -2230,7 +2278,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 845954,
+    id: 8459542,
+    OrderID: 8459542,
     CustomerName: 'Jie Yan',
     TotalAmount: 87.99,
     OrderItems: 'Shoes',
@@ -2241,6 +2290,7 @@ export const ordersData = [
       'https://cdn.shopclues.com/images1/thumbnails/104158/320/320/148648730-104158193-1592481791.jpg',
   },
   {
+    id: 874534,
     OrderID: 874534,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
@@ -2252,6 +2302,7 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
+    id: 38489,
     OrderID: 38489,
     CustomerName: 'Miron',
     TotalAmount: 87.99,
@@ -2263,6 +2314,7 @@ export const ordersData = [
       'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg',
   },
   {
+    id: 24546,
     OrderID: 24546,
     CustomerName: 'Frank',
     TotalAmount: 84.99,
@@ -2274,7 +2326,8 @@ export const ordersData = [
       'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80',
   },
   {
-    OrderID: 874534,
+    id: 874534123,
+    OrderID: 874534123,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2285,6 +2338,7 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
+    id: 10248,
     OrderID: 10248,
     CustomerName: 'Vinet',
 
@@ -2297,6 +2351,7 @@ export const ordersData = [
       product6,
   },
   {
+    id: 345653,
     OrderID: 345653,
     CustomerName: 'Carson Darrin',
     TotalAmount: 56.34,
@@ -2308,7 +2363,8 @@ export const ordersData = [
       product5,
   },
   {
-    OrderID: 390457,
+    id: 390457111,
+    OrderID: 390457111,
     CustomerName: 'Fran Perez',
     TotalAmount: 93.31,
     OrderItems: 'Candy Gucci',
@@ -2319,7 +2375,8 @@ export const ordersData = [
       product7,
   },
   {
-    OrderID: 893486,
+    id: 893486333,
+    OrderID: 893486333,
     CustomerName: 'Anika Viseer',
     TotalAmount: 93.31,
     OrderItems: 'Night Lamp',
@@ -2330,7 +2387,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 748975,
+    id: 748975333,
+    OrderID: 748975333,
     CustomerName: 'Miron Vitold',
     TotalAmount: 23.99,
     OrderItems: 'Healthcare Erbology',
@@ -2341,7 +2399,8 @@ export const ordersData = [
       product1,
   },
   {
-    OrderID: 94757,
+    id: 94757222,
+    OrderID: 94757222,
     CustomerName: 'Omar Darobe',
     TotalAmount: 95.99,
     OrderItems: 'Makeup Lancome Rouge',
@@ -2352,7 +2411,8 @@ export const ordersData = [
       product2,
   },
   {
-    OrderID: 944895,
+    id: 9448952,
+    OrderID: 9448952,
     CustomerName: 'Lulia albu',
     TotalAmount: 17.99,
     OrderItems: 'Skincare',
@@ -2363,7 +2423,8 @@ export const ordersData = [
       product3,
   },
   {
-    OrderID: 845954,
+    id: 8459541,
+    OrderID: 8459541,
     CustomerName: 'Penjani',
     TotalAmount: 59.99,
     OrderItems: 'Headphone',
@@ -2374,7 +2435,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 845954,
+    id: 84595422,
+    OrderID: 84595422,
     CustomerName: 'Jie Yan',
     TotalAmount: 87.99,
     OrderItems: 'Shoes',
@@ -2385,7 +2447,8 @@ export const ordersData = [
       'https://cdn.shopclues.com/images1/thumbnails/104158/320/320/148648730-104158193-1592481791.jpg',
   },
   {
-    OrderID: 874534,
+    id: 874539,
+    OrderID: 874539,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2396,7 +2459,8 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
-    OrderID: 38489,
+    id: 384891,
+    OrderID: 384891,
     CustomerName: 'Miron',
     TotalAmount: 87.99,
     OrderItems: 'Ice Cream',
@@ -2407,7 +2471,8 @@ export const ordersData = [
       'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg',
   },
   {
-    OrderID: 24546,
+    id: 245462,
+    OrderID: 245462,
     CustomerName: 'Frank',
     TotalAmount: 84.99,
     OrderItems: 'Pan Cake',
@@ -2418,7 +2483,8 @@ export const ordersData = [
       'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80',
   },
   {
-    OrderID: 874534,
+    id: 874534233,
+    OrderID: 874534233,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2429,6 +2495,7 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
+    id: 10248,
     OrderID: 10248,
     CustomerName: 'Vinet',
 
@@ -2441,6 +2508,7 @@ export const ordersData = [
       product6,
   },
   {
+    id: 345653,
     OrderID: 345653,
     CustomerName: 'Carson Darrin',
     TotalAmount: 56.34,
@@ -2452,7 +2520,8 @@ export const ordersData = [
       product5,
   },
   {
-    OrderID: 390457,
+    id: 390457222,
+    OrderID: 39045722,
     CustomerName: 'Fran Perez',
     TotalAmount: 93.31,
     OrderItems: 'Candy Gucci',
@@ -2463,7 +2532,8 @@ export const ordersData = [
       product7,
   },
   {
-    OrderID: 893486,
+    id: 893486123,
+    OrderID: 893486123,
     CustomerName: 'Anika Viseer',
     TotalAmount: 93.31,
     OrderItems: 'Night Lamp',
@@ -2474,7 +2544,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 748975,
+    id: 748975222,
+    OrderID: 748975222,
     CustomerName: 'Miron Vitold',
     TotalAmount: 23.99,
     OrderItems: 'Healthcare Erbology',
@@ -2485,7 +2556,8 @@ export const ordersData = [
       product1,
   },
   {
-    OrderID: 94757,
+    id: 94757333,
+    OrderID: 94757333,
     CustomerName: 'Omar Darobe',
     TotalAmount: 95.99,
     OrderItems: 'Makeup Lancome Rouge',
@@ -2496,7 +2568,8 @@ export const ordersData = [
       product2,
   },
   {
-    OrderID: 944895,
+    id: 9448951,
+    OrderID: 9448951,
     CustomerName: 'Lulia albu',
     TotalAmount: 17.99,
     OrderItems: 'Skincare',
@@ -2507,7 +2580,8 @@ export const ordersData = [
       product3,
   },
   {
-    OrderID: 845954,
+    id: 845954111,
+    OrderID: 845954111,
     CustomerName: 'Penjani',
     TotalAmount: 59.99,
     OrderItems: 'Headphone',
@@ -2518,7 +2592,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 845954,
+    id: 845954123,
+    OrderID: 845954123,
     CustomerName: 'Jie Yan',
     TotalAmount: 87.99,
     OrderItems: 'Shoes',
@@ -2529,7 +2604,8 @@ export const ordersData = [
       'https://cdn.shopclues.com/images1/thumbnails/104158/320/320/148648730-104158193-1592481791.jpg',
   },
   {
-    OrderID: 874534,
+    id: 874534122,
+    OrderID: 874534122,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2540,7 +2616,8 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
-    OrderID: 38489,
+    id: 384894,
+    OrderID: 384894,
     CustomerName: 'Miron',
     TotalAmount: 87.99,
     OrderItems: 'Ice Cream',
@@ -2551,7 +2628,8 @@ export const ordersData = [
       'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg',
   },
   {
-    OrderID: 24546,
+    id: 245461,
+    OrderID: 245461,
     CustomerName: 'Frank',
     TotalAmount: 84.99,
     OrderItems: 'Pan Cake',
@@ -2562,7 +2640,8 @@ export const ordersData = [
       'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80',
   },
   {
-    OrderID: 874534,
+    id: 874534111,
+    OrderID: 874534111,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2573,6 +2652,7 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
+    id: 10248,
     OrderID: 10248,
     CustomerName: 'Vinet',
 
@@ -2585,6 +2665,7 @@ export const ordersData = [
       product6,
   },
   {
+    id: 345653,
     OrderID: 345653,
     CustomerName: 'Carson Darrin',
     TotalAmount: 56.34,
@@ -2596,6 +2677,7 @@ export const ordersData = [
       product5,
   },
   {
+    id: 390457,
     OrderID: 390457,
     CustomerName: 'Fran Perez',
     TotalAmount: 93.31,
@@ -2607,7 +2689,8 @@ export const ordersData = [
       product7,
   },
   {
-    OrderID: 893486,
+    id: 893486223,
+    OrderID: 893486223,
     CustomerName: 'Anika Viseer',
     TotalAmount: 93.31,
     OrderItems: 'Night Lamp',
@@ -2618,7 +2701,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 748975,
+    id: 748975111,
+    OrderID: 748975111,
     CustomerName: 'Miron Vitold',
     TotalAmount: 23.99,
     OrderItems: 'Healthcare Erbology',
@@ -2629,7 +2713,8 @@ export const ordersData = [
       product1,
   },
   {
-    OrderID: 94757,
+    id: 94757111,
+    OrderID: 94757111,
     CustomerName: 'Omar Darobe',
     TotalAmount: 95.99,
     OrderItems: 'Makeup Lancome Rouge',
@@ -2640,7 +2725,8 @@ export const ordersData = [
       product2,
   },
   {
-    OrderID: 944895,
+    id: 944895123,
+    OrderID: 944895123,
     CustomerName: 'Lulia albu',
     TotalAmount: 17.99,
     OrderItems: 'Skincare',
@@ -2651,7 +2737,8 @@ export const ordersData = [
       product3,
   },
   {
-    OrderID: 845954,
+    id: 84595455,
+    OrderID: 84595455,
     CustomerName: 'Penjani',
     TotalAmount: 59.99,
     OrderItems: 'Headphone',
@@ -2662,7 +2749,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 845954,
+    id: 845954321,
+    OrderID: 845954321,
     CustomerName: 'Jie Yan',
     TotalAmount: 87.99,
     OrderItems: 'Shoes',
@@ -2673,7 +2761,8 @@ export const ordersData = [
       'https://cdn.shopclues.com/images1/thumbnails/104158/320/320/148648730-104158193-1592481791.jpg',
   },
   {
-    OrderID: 874534,
+    id: 8745342222,
+    OrderID: 8745342222,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2684,7 +2773,8 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
-    OrderID: 38489,
+    id: 384895,
+    OrderID: 384895,
     CustomerName: 'Miron',
     TotalAmount: 87.99,
     OrderItems: 'Ice Cream',
@@ -2695,7 +2785,8 @@ export const ordersData = [
       'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg',
   },
   {
-    OrderID: 24546,
+    id: 245466,
+    OrderID: 245466,
     CustomerName: 'Frank',
     TotalAmount: 84.99,
     OrderItems: 'Pan Cake',
@@ -2706,7 +2797,8 @@ export const ordersData = [
       'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80',
   },
   {
-    OrderID: 874534,
+    id: 87453455,
+    OrderID: 87453455,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2717,6 +2809,7 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
+    id: 10248,
     OrderID: 10248,
     CustomerName: 'Vinet',
 
@@ -2729,6 +2822,7 @@ export const ordersData = [
       product6,
   },
   {
+    id: 345653,
     OrderID: 345653,
     CustomerName: 'Carson Darrin',
     TotalAmount: 56.34,
@@ -2740,6 +2834,7 @@ export const ordersData = [
       product5,
   },
   {
+    id: 390457,
     OrderID: 390457,
     CustomerName: 'Fran Perez',
     TotalAmount: 93.31,
@@ -2751,7 +2846,8 @@ export const ordersData = [
       product7,
   },
   {
-    OrderID: 893486,
+    id: 8934861111,
+    OrderID: 8934861111,
     CustomerName: 'Anika Viseer',
     TotalAmount: 93.31,
     OrderItems: 'Night Lamp',
@@ -2762,7 +2858,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 748975,
+    id: 748975332,
+    OrderID: 748975332,
     CustomerName: 'Miron Vitold',
     TotalAmount: 23.99,
     OrderItems: 'Healthcare Erbology',
@@ -2773,7 +2870,8 @@ export const ordersData = [
       product1,
   },
   {
-    OrderID: 94757,
+    id: 94757323,
+    OrderID: 94757323,
     CustomerName: 'Omar Darobe',
     TotalAmount: 95.99,
     OrderItems: 'Makeup Lancome Rouge',
@@ -2784,7 +2882,8 @@ export const ordersData = [
       product2,
   },
   {
-    OrderID: 944895,
+    id: 94489532,
+    OrderID: 94489532,
     CustomerName: 'Lulia albu',
     TotalAmount: 17.99,
     OrderItems: 'Skincare',
@@ -2795,7 +2894,8 @@ export const ordersData = [
       product3,
   },
   {
-    OrderID: 845954,
+    id: 8459541113,
+    OrderID: 8459541113,
     CustomerName: 'Penjani',
     TotalAmount: 59.99,
     OrderItems: 'Headphone',
@@ -2806,7 +2906,8 @@ export const ordersData = [
       product4,
   },
   {
-    OrderID: 845954,
+    id: 8459542222,
+    OrderID: 8459542222,
     CustomerName: 'Jie Yan',
     TotalAmount: 87.99,
     OrderItems: 'Shoes',
@@ -2817,7 +2918,8 @@ export const ordersData = [
       'https://cdn.shopclues.com/images1/thumbnails/104158/320/320/148648730-104158193-1592481791.jpg',
   },
   {
-    OrderID: 874534,
+    id: 87453433,
+    OrderID: 87453433,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
@@ -2828,7 +2930,8 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
   {
-    OrderID: 38489,
+    id: 384898,
+    OrderID: 384898,
     CustomerName: 'Miron',
     TotalAmount: 87.99,
     OrderItems: 'Ice Cream',
@@ -2839,7 +2942,8 @@ export const ordersData = [
       'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg',
   },
   {
-    OrderID: 24546,
+    id: 245468,
+    OrderID: 245468,
     CustomerName: 'Frank',
     TotalAmount: 84.99,
     OrderItems: 'Pan Cake',
@@ -2850,7 +2954,8 @@ export const ordersData = [
       'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80',
   },
   {
-    OrderID: 874534,
+    id: 874534888,
+    OrderID: 874534888,
     CustomerName: 'Danai',
     TotalAmount: 122.99,
     OrderItems: 'Watch',
