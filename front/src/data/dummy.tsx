@@ -44,7 +44,7 @@ type dummyProps = {
 export const gridOrderImage = (path:string) => (
   <div>
     <img 
-      style={{maxWidth: "5em", borderRadius:"1rem"}}
+      style={{maxWidth: "6em", borderRadius:"1rem"}}
       className="rounded-xl h-20 md:ml-3 "
       src={path}
       alt="order-item"
@@ -94,14 +94,19 @@ export const kanbanGrid = [
     keyField: 'Close',
     allowToggle: true },
 ];
-const gridEmployeeProfile = (props:dummyProps) => (
+
+type EmployeeProfileProps = {
+  EmployeeImage: string;
+  Name: string;
+}
+const gridEmployeeProfile = (employeeProps:EmployeeProfileProps) => (
   <div className="flex items-center gap-2">
     <img
       className="rounded-full w-10 h-10"
-      src={props.EmployeeImage}
+      src={employeeProps.EmployeeImage}
       alt="employee"
     />
-    <p>{props.Name}</p>
+    <p>{employeeProps.Name}</p>
   </div>
 );
 
@@ -466,40 +471,54 @@ export const customersGrid = [
 
 ];
 
+
+
 export const employeesGrid = [
-  { headerText: 'Employee',
-    width: '150',
-    template: gridEmployeeProfile,
-    textAlign: 'Center' },
-  { field: 'Name',
-    headerText: '',
-    width: '0',
-    textAlign: 'Center',
-  },
+  { field :'Employee',
+    headerName: 'Employee',
+    width: 150,
+    flex: 1,
+    editable: true,
+    renderCell: (path: GridRenderCellParams<EmployeeProfileProps>) => {
+      return (
+        <>
+          {gridEmployeeProfile(path.value as EmployeeProfileProps)}
+        </>
+      );
+    },
+    align: 'center' as GridAlignment },
   { field: 'Title',
-    headerText: 'Designation',
-    width: '170',
-    textAlign: 'Center',
+    headerName: 'Designation',
+    width: 170,
+    flex: 1,
+    editable: true,
+    align: 'center' as GridAlignment,
   },
-  { headerText: 'Country',
-    width: '120',
-    textAlign: 'Center',
+  { field: 'Country',
+    headerName: 'Country',
+    width: 120,
+    flex: 1,
+    editable: true,
+    align: 'center' as GridAlignment,
     template: gridEmployeeCountry },
 
   { field: 'HireDate',
-    headerText: 'Hire Date',
-    width: '135',
-    format: 'yMd',
-    textAlign: 'Center' },
+    headerName: 'Hire Date',
+    width: 135,
+    flex: 1,
+    editable: true,
+    align: 'center' as GridAlignment },
 
   { field: 'ReportsTo',
-    headerText: 'Reports To',
-    width: '120',
-    textAlign: 'Center' },
+    headerName: 'Reports To',
+    width: 120,
+    flex: 1,
+    editable: true,
+    align: 'center' as GridAlignment },
   { field: 'EmployeeID',
-    headerText: 'Employee ID',
-    width: '125',
-    textAlign: 'Center' },
+    headerName: 'Employee ID',
+    width: 125,
+    align: 'center' as GridAlignment },
 ];
 
 export const links = [
@@ -520,75 +539,67 @@ export const links = [
         name: 'orders',
         icon: <AiOutlineShoppingCart />,
       },
-      {
-        name: 'employees',
-        icon: <IoMdContacts />,
-      },
-      {
-        name: 'customers',
-        icon: <RiContactsLine />,
-      },
     ],
   },
-  {
-    title: 'Apps',
-    links: [
-      {
-        name: 'calendar',
-        icon: <AiOutlineCalendar />,
-      },
-      {
-        name: 'kanban',
-        icon: <BsKanban />,
-      },
-      {
-        name: 'editor',
-        icon: <FiEdit />,
-      },
-      {
-        name: 'color-picker',
-        icon: <BiColorFill />,
-      },
-    ],
-  },
-  {
-    title: 'Charts',
-    links: [
-      {
-        name: 'line',
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: 'area',
-        icon: <AiOutlineAreaChart />,
-      },
+  // {
+  //   title: 'Apps',
+  //   links: [
+  //     {
+  //       name: 'calendar',
+  //       icon: <AiOutlineCalendar />,
+  //     },
+  //     {
+  //       name: 'kanban',
+  //       icon: <BsKanban />,
+  //     },
+  //     {
+  //       name: 'editor',
+  //       icon: <FiEdit />,
+  //     },
+  //     {
+  //       name: 'color-picker',
+  //       icon: <BiColorFill />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Charts',
+  //   links: [
+  //     {
+  //       name: 'line',
+  //       icon: <AiOutlineStock />,
+  //     },
+  //     {
+  //       name: 'area',
+  //       icon: <AiOutlineAreaChart />,
+  //     },
 
-      {
-        name: 'bar',
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: 'pie',
-        icon: <FiPieChart />,
-      },
-      {
-        name: 'financial',
-        icon: <RiStockLine />,
-      },
-      {
-        name: 'color-mapping',
-        icon: <BsBarChart />,
-      },
-      {
-        name: 'pyramid',
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        name: 'stacked',
-        icon: <AiOutlineBarChart />,
-      },
-    ],
-  },
+  //     {
+  //       name: 'bar',
+  //       icon: <AiOutlineBarChart />,
+  //     },
+  //     {
+  //       name: 'pie',
+  //       icon: <FiPieChart />,
+  //     },
+  //     {
+  //       name: 'financial',
+  //       icon: <RiStockLine />,
+  //     },
+  //     {
+  //       name: 'color-mapping',
+  //       icon: <BsBarChart />,
+  //     },
+  //     {
+  //       name: 'pyramid',
+  //       icon: <GiLouvrePyramid />,
+  //     },
+  //     {
+  //       name: 'stacked',
+  //       icon: <AiOutlineBarChart />,
+  //     },
+  //   ],
+  // },
 ];
 
 export const cartData = [
@@ -911,30 +922,26 @@ export const ordersGrid = [
   {
     headerName: 'Image',
     field: 'image',
-    // template: gridOrderImage,
     align: 'center' as GridAlignment,
-    // width: 120,
+    width: 200,
     renderCell: (path: GridRenderCellParams<string>) => {
       return (
         <>
           {gridOrderImage(path.value as string)}
         </>
       );
-    },
-    flex: 1
+    }
   },
   {
     headerName: 'Item',
     field: 'orderItems',
-    // width: 150,
-    flex: 1,
+    width: 200,
     editable: true,
     align: 'center' as GridAlignment,
   },
   { field: 'customerName',
     headerName: 'Customer Name',
-    // width: 150,
-    flex: 1,
+    width: 200,
     align: 'center' as GridAlignment,
   },
   {
@@ -942,12 +949,10 @@ export const ordersGrid = [
     headerName: 'Total Amount',
     align: 'center' as GridAlignment,
     editable: true,
-    // width: 150,
-    flex: 1,
+    width: 200,
   },
   {
     headerName: 'Status',
-    // template: gridOrderStatus,
     field: 'status',
     align: 'center' as GridAlignment,
     renderCell: (path: GridRenderCellParams<string>) => {
@@ -957,22 +962,20 @@ export const ordersGrid = [
         </>
       );
     },
-    // width: 120,
-    flex: 1,
+    width: 200,
 
   },
   {
     field: 'orderId',
     headerName: 'Order ID',
-    // width: 120,
-    flex: 1,
+    width: 200,
     align: 'center' as GridAlignment,
   },
 
   {
     field: 'location',
     headerName: 'Location',
-    // width: 150,
+    width: 200,
     align: 'center' as GridAlignment,
   },
 ];

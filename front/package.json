@@ -10,6 +10,9 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@material-ui/core": "latest",
+    "@material-ui/x-grid": "4.0.0-alpha.25",
+    "@material-ui/x-grid-data-generator": "^4.0.0-alpha.37",
     "@mui/material": "^5.8.6",
     "@mui/x-data-grid": "^5.12.3",
     "@syncfusion/ej2": "^19.4.48",

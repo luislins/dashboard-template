@@ -1,6 +1,5 @@
 import React from 'react'
 import { BsCurrencyDollar } from 'react-icons/bs';
-import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
@@ -9,20 +8,8 @@ import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropd
 import { useStateContext } from '../contexts/Context';
 import product9 from '../data/product9.jpg';
 
-interface DropDownProps {
-  currentMode: string
-};
-
-const DropDown = ({ currentMode }: DropDownProps) =>{
-  return (
-    <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
-      <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: "white" }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
-    </div>
-  )
-}
-
 export function Ecommerce() {
-  const { currentColor, currentMode } = useStateContext();
+  const { currentColor } = useStateContext();
   
   return (
     <div className="mt-24">
@@ -160,10 +147,6 @@ export function Ecommerce() {
 
       <div className="flex gap-10 m-4 flex-wrap justify-center">
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl">
-          <div className="flex justify-between items-center gap-2">
-            <p className="text-xl font-semibold">Recent Transactions</p>
-            <DropDown currentMode={currentMode} />
-          </div>
           <div className="mt-10 w-72 md:w-400">
             {recentTransactions.map((item) => (
               <div key={item.title} className="flex justify-between mt-4">
